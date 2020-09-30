@@ -1,0 +1,30 @@
+
+include("conexao");
+
+$start = $_REQUEST['start'];
+$limit = $_REQUEST['limit'];
+
+$querString= "Select * from Contact LIMIT $start,$limit";
+$query =Mysqli_query(conexao,querString) or die(Mysqli_error()) ;
+
+$contatos= array();
+
+While($contato=mysql1_fetch_array($array))
+{
+$contatos[]=$contato;
+
+}
+
+$queryTotal =Mysqli_query('Select count(*) as num from contact') or die(Mysqli_error()) ;
+$row= mysql1_fetch_assoc($queryTotal);
+$total=$row['num'];
+
+
+echo json_encode(array(
+  
+  "sucesso" =>mysql_error()==0,
+  "total"   => $total,
+  "contacts" => $contatos
+
+ 
+));
